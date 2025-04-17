@@ -1,0 +1,25 @@
+<!-- templates/upload.html -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>PDFアップロード - 面接練習サイト</title>
+</head>
+<body>
+  <h1>履歴書 / ES をアップロード</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="pdf" accept="application/pdf" required>
+    <button type="submit">質問を生成</button>
+  </form>
+
+  {% if questions %}
+    <h2>想定質問</h2>
+    <ul>
+      {% for q in questions %}
+        <li>{{ q }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</body>
+</html>
