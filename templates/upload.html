@@ -1,4 +1,5 @@
-<!-- templates/upload.html -->
+{% load index_filters %}
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -7,6 +8,8 @@
 </head>
 <body>
   <h1>履歴書 / ES をアップロード</h1>
+
+  <!-- アップロードフォーム -->
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <input type="file" name="pdf" accept="application/pdf" required>
@@ -14,12 +17,45 @@
   </form>
 
   {% if questions %}
-    <h2>想定質問</h2>
+    <hr>
+    <h2>想定質問と回答</h2>
     <ul>
       {% for q in questions %}
-        <li>{{ q }}</li>
+        <li>
+          <p><strong>{{ q }}</strong></p>
+
+          {% if answers|length >= forloop.counter %}
+            <!-- 回答済みの質問 -->
+            <p style="white-space: pre-line;">あなたの回答：{{ answers|index:forloop.counter0 }}</p>
+
+            {% if feedbacks|length >= forloop.counter %}
+              <p style="white-space: pre-line; font-size: 90%;">
+                フィードバック：{{ feedbacks|index:forloop.counter0 }}
+              </p>
+            {% endif %}
+
+          {% elif forloop.last %}
+            <!-- 未回答の最新の質問にのみ回答欄を表示 -->
+            <form method="post">
+              {% csrf_token %}
+              <input type="hidden" name="skip_upload" value="1">
+              <textarea name="answer_{{ forloop.counter }}" rows="5" cols="80"
+                        placeholder="この質問へのあなたの回答を入力してください"></textarea><br>
+              <button type="submit">回答を送信</button>
+            </form>
+          {% endif %}
+        </li>
       {% endfor %}
     </ul>
+
+    {% if feedbacks and answers|length == questions|length %}
+      <!-- 全質問に回答＆フィードバック済なら、次の質問へ -->
+      <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next_question" value="1">
+        <button type="submit">次の質問へ</button>
+      </form>
+    {% endif %}
   {% endif %}
 </body>
 </html>
