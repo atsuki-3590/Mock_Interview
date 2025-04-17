@@ -29,7 +29,8 @@ SECRET_KEY = 'django-insecure-d^@iln_g93wv!obgoiy)9h3ts+lnkje7nnw1&m$pg91dk4z16!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['mock-interview-b04i.onrender.com', 'localhost', '127.0.0.1']
+
 
 
 # Application definition
