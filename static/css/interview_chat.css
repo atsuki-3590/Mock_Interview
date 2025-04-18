@@ -1,0 +1,138 @@
+/* ---- ベース ---- */
+:root {
+    --primary-bg: #eaf2ff;    /* ほんのり青 */
+    --primary-light: #f5f9ff; /* より薄い青 */
+    --answer-bg: #d9f7e9;     /* 淡いグリーン（回答） */
+    --feedback-bg: #fff7e6;   /* フィードバック */
+    --text-color: #333;
+    --accent: #2377ff;
+  }
+  
+  * { box-sizing: border-box; }
+  
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    background: var(--primary-bg);
+    color: var(--text-color);
+  }
+  
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem 4rem;
+  }
+  
+  /* ---- ヘッダー ---- */
+  .site-header {
+    background: var(--accent);
+    color: #fff;
+    padding: 1rem 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .site-header__title {
+    margin: 0;
+    font-size: 1.3rem;
+  }
+  
+  .site-header__nav .nav-link {
+    color: #fff;
+    margin-left: 1rem;
+    text-decoration: none;
+  }
+  .site-header__nav .nav-link:hover { text-decoration: underline; }
+  
+  /* ---- フッター ---- */
+  .site-footer {
+    background: var(--primary-light);
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 0.85rem;
+  }
+  
+  /* ---- 見出し & 区切り ---- */
+  .page-heading { margin-top: 0; }
+  .divider { border: none; border-top: 1px solid #c7d4ff; margin: 2rem 0; }
+  
+  /* ---- フォーム & ボタン ---- */
+  .upload-form,
+  .answer-form,
+  .next-form { margin-bottom: 1.5rem; }
+  
+  input[type="file"] { margin-right: .6rem; }
+  
+  button,
+  .btn-primary,
+  .btn-secondary {
+    padding: .6rem 1.4rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-secondary { background: #fff; color: var(--accent); border: 2px solid var(--accent); }
+  button:hover { opacity: 0.9; }
+  
+  /* ---- チャットエリア ---- */
+  .chat-area { display: flex; flex-direction: column; gap: 1rem; }
+  
+  /* 吹き出し共通 */
+  .chat-bubble {
+    padding: .8rem 1.2rem;
+    border-radius: 12px;
+    position: relative;
+    max-width: 80%;
+    line-height: 1.5;
+  }
+  
+  /* 左側（質問・フィードバック） */
+  .question-bubble { background: #f0f4ff; align-self: flex-start; }
+  .feedback-bubble { background: var(--feedback-bg); font-size: .9em; align-self: flex-start; }
+  
+  /* 右側（回答） */
+  .answer-bubble {
+    background: var(--answer-bg);
+    align-self: flex-end;
+  }
+  
+  /* 吹き出しの矢印 */
+  .question-bubble::after,
+  .feedback-bubble::after,
+  .answer-bubble::after {
+    content: "";
+    position: absolute;
+    width: 0; height: 0;
+    border: 10px solid transparent;
+  }
+  
+  .question-bubble::after {
+    border-right-color: #f0f4ff;
+    left: -18px; top: 10px;
+  }
+  
+  .feedback-bubble::after {
+    border-right-color: var(--feedback-bg);
+    left: -18px; top: 10px;
+  }
+  
+  .answer-bubble::after {
+    border-left-color: var(--answer-bg);
+    right: -18px; top: 10px;
+  }
+  
+  /* テキストエリア */
+  textarea {
+    width: 100%;
+    max-width: 100%;
+    padding: .6rem;
+    border: 1px solid #b4c6ff;
+    border-radius: 6px;
+    resize: vertical;
+    font-family: inherit;
+  }
+  
