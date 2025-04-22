@@ -19,6 +19,22 @@
 
 ---
 
+## 起動方法
+```bash
+# 仮想環境の立ち上げ
+.\mock_interview\Scripts\Activate.ps1  
+
+# djangoの起動
+python backend\manage.py runserver
+
+# reactの起動
+cd frontend
+npm start
+
+```
+
+---
+
 ## 主な機能
 
 ### 1. PDFアップロードと解析
