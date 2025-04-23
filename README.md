@@ -1,4 +1,4 @@
-# 面接練習サイト - 引継ぎ用仕様書
+# 面接練習サイト 
 
 ## 概要
 
@@ -24,12 +24,13 @@
 # 仮想環境の立ち上げ
 .\mock_interview\Scripts\Activate.ps1  
 
-# djangoの起動
-python backend\manage.py runserver
-
-# reactの起動
+# reactの起動（react変更時）
 cd frontend
-npm start
+npm run dev
+
+# djangoの起動
+cd ../
+python backend\manage.py runserver
 
 ```
 
@@ -61,16 +62,44 @@ npm start
 
 ```plaintext
 Mock_Interview/
-├── interview/               # アプリ本体
-│   ├── views.py             # PDF処理・API連携
-│   ├── templates/
-│   │   ├── upload.html      # アップロード・QA表示画面
-│   ├── static/
-│   │   └── css/
-│   │       └── interview_chat.css
-├── interview_site/          # プロジェクトルート
-│   └── settings.py          # STATICFILES_DIRS 設定あり
-└── static/                  # 静的ファイルルート
+│
+├── backend/                        ← Djangoプロジェクトルート
+│   ├── manage.py                   ← Django管理コマンド起点
+│   ├── db.sqlite3                  ← SQLite DB（開発用）
+│   │
+│   ├── frontend_build/            ← ✅ Reactビルド成果物（自動生成）
+│   │   ├── index.html             ← Reactのトップページ
+│   │   └── static/                ← ReactのCSS/JS類（staticfiles）
+│   │       ├── js/
+│   │       └── css/
+│   │
+│   ├── interview/                 ← Djangoアプリ（ビュー・APIなど）
+│   │   ├── views.py              ← Reactのindex.htmlを返すビュー
+│   │   ├── urls.py               ← ルーティング（"/" + "/api/*"）
+│   │   └── api_views.py          ← ChatGPTとのやりとり（PDF/回答/質問）
+│   │
+│   └── interview_site/           ← Djangoプロジェクト設定
+│       ├── __init__.py
+│       ├── settings.py           ← Reactのパス、CORS設定など
+│       ├── urls.py               ← URLルートで interview.urls を include
+│       └── wsgi.py
+│
+├── frontend/                      ← Reactプロジェクト
+│   ├── public/                    ← favicon, index.html のテンプレートなど
+│   ├── src/                       ← ソースコード
+│   │   ├── App.jsx               ← メイン画面（チャットなど）
+│   │   ├── components/           ← UI部品
+│   │   │   └── ChatBubble.jsx
+│   │   └── services/             ← API通信
+│   │       └── api.js
+│   ├── .env                       ← ビルド先設定（例：BUILD_PATH）
+│   ├── package.json              ← React依存とビルドコマンド
+│   └── node_modules/             ← npm installされたパッケージ群
+│
+├── .env                            ← 環境変数（OpenAIのAPIキーなど）
+├── .gitignore                      ← .env や __pycache__ などを除外
+├── requirements.txt                ← Django, django-cors-headers など
+└── render.yaml                     ← （任意）Renderの自動設定用
 
 ```
 

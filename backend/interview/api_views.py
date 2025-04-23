@@ -8,7 +8,7 @@ from django.views.decorators.http import require_http_methods
 from django.core.files.storage import default_storage
 from openai import OpenAI
 
-print("🔑 OPENAI_API_KEY =", os.getenv("OPENAI_API_KEY"))
+# print("🔑 OPENAI_API_KEY =", os.getenv("OPENAI_API_KEY"))
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
