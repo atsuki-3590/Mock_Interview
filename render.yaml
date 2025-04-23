@@ -3,7 +3,7 @@ services:
     name: mock-interview
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn interview_site.wsgi
+    startCommand: gunicorn backend.interview_site.wsgi
     envVars:
       - key: OPENAI_API_KEY
         sync: false # RenderのWebUIから設定可能
